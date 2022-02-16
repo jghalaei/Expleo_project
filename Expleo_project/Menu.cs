@@ -9,12 +9,33 @@ using System.Threading.Tasks;
 
 namespace Expleo_project
 {
-    internal class Solutions
+    internal class Menu
     {
-        public static void ShowMenu()
+        int selectedOption = 0;
+        public  void ShowMenu()
         {
-            int option = showList();
-            switch (option)
+            if (selectedOption != 0)
+            {
+                Console.WriteLine("\n------------------------------------------\n");
+                Console.WriteLine("Do you want to return to menu (y/n)? ");
+                string opt = Console.ReadLine() ?? "";
+                if (opt.ToLower() != "y" && opt.ToLower() != "n")
+                {
+                    Console.WriteLine("Please select a correct option (y/n)?");
+                    ShowMenu();
+                }
+                else if (opt.ToLower() == "y")
+                {
+                    selectedOption = 0;
+                }
+
+            }
+            if (selectedOption == 0)
+            {
+                selectedOption = showList();
+            }
+
+            switch (selectedOption)
             {
                 case 1: RunAnagram(); break;
                 case 2: RunWebLinks(); break;
@@ -27,7 +48,7 @@ namespace Expleo_project
             ShowMenu();
         }
 
-        private static void RunCalc3()
+        private void RunCalc3()
         {
             try
             {
@@ -46,7 +67,7 @@ namespace Expleo_project
             }
         }
 
-        private static void RunCalc2()
+        private  void RunCalc2()
         {
             try
             {
@@ -65,7 +86,7 @@ namespace Expleo_project
             }
         }
 
-        private static void RunCalc1()
+        private  void RunCalc1()
         {
             try
             {
@@ -84,17 +105,27 @@ namespace Expleo_project
             }
         }
 
-        private static void RunWebLinks()
+        private  void RunWebLinks()
         {
             string url;
             Console.WriteLine("Please enter the URL: ");
             url = Console.ReadLine() ?? "";
-            WebPageLinkFinder weblink = new WebPageLinkFinder();
-            weblink.findLinks(url);
-            return;
+            WebLink weblink = new WebLink();
+
+            try
+            {
+                string result = weblink.FindLinks(url);
+            Console.WriteLine(result);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("Please enter a valid URL...");
+                RunWebLinks();
+            }
         }
 
-        private static void RunAnagram()
+        private void RunAnagram()
         {
             string str1, str2;
             Console.WriteLine("Enter Text 1: ");
@@ -110,9 +141,10 @@ namespace Expleo_project
             return;
         }
 
-        private static int showList()
+      
+        private int showList()
         {
-
+            int option;
             Console.WriteLine("\n1: Detect Anagram");
             Console.WriteLine("2: Find all links on a web page");
             Console.WriteLine("3: Calculator (one operator, two parameters)");
@@ -121,14 +153,14 @@ namespace Expleo_project
             Console.WriteLine("0: Quit");
             Console.WriteLine("\nPlease enter the proper number : ");
             string? inputStr = Console.ReadLine();
-            int selectedOption;
 
-            if (String.IsNullOrEmpty(inputStr) || !int.TryParse(inputStr, out selectedOption))
+
+            if (String.IsNullOrEmpty(inputStr) || !int.TryParse(inputStr, out option))
             {
                 Console.WriteLine("Please select a correct option");
                 return showList();
             }
-            return selectedOption;
+            return option;
         }
     }
 }

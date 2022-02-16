@@ -2,4 +2,5 @@
 using Expleo.WebPages;
 using Expleo_project;
 
-Solutions.ShowMenu();
+Menu menu = new();
+menu.ShowMenu();

@@ -8,32 +8,30 @@ using System.Threading.Tasks;
 
 namespace Expleo.WebPages
 {
-    public class WebPageLinkFinder
+    public class WebLink
     {
-        public void findLinks(string urlPath)
+        public string FindLinks(string urlPath)
         {
-            Uri? uriResult;
-        bool result = Uri.TryCreate(urlPath,UriKind.RelativeOrAbsolute, out uriResult) 
-    && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme==Uri.UriSchemeHttps);
-    if (!result)
-    {
-        Console.WriteLine("Invalid URL...\nPlease enter a valid URL");
-        return;
-    }
+            string result;
             var chromeOptions = new ChromeOptions();
             chromeOptions.PageLoadStrategy = PageLoadStrategy.Eager;
-
             IWebDriver driver = new ChromeDriver(chromeOptions);
             try
             {
                 Console.WriteLine("The webpage is reading....\n");
-                driver.Navigate().GoToUrl(uriResult.AbsoluteUri);
+                driver.Navigate().GoToUrl(urlPath);
                 var elements = driver.FindElements(By.TagName("a"));
-                Console.WriteLine("The existing web-links are as following :\n ");
+                result= "The existing web-links are as following :";
                 foreach (IWebElement element in elements)
                 {
-                    Console.WriteLine(element.GetAttribute("href"));
-                }
+                    result += "\n" + element.GetAttribute("href");
+                }                
+                return result;
+            }
+            catch( WebDriverException exception)
+            {
+              
+                throw exception;
             }
             finally
             {

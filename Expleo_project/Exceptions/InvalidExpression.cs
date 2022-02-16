@@ -8,5 +8,10 @@ namespace Expleo.Exceptions
 {
     public class InvalidExpression:Exception
     {
+        public  InvalidExpression() : base("Invalid expression...")
+        {
+
+        }
+
     }
 }

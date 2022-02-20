@@ -11,7 +11,11 @@ namespace Expleo_project
 {
     internal class Menu
     {
+       
         int selectedOption = 0;
+
+ 
+
         public  void ShowMenu()
         {
             if (selectedOption != 0)

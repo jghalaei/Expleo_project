@@ -24,6 +24,7 @@ namespace Expleo.Calculator
             {
                 if (currentChar == ' ')
                     continue;
+
                 if (oprs.Contains(currentChar))
                 {
                     stNumbers.Push(Calc.StrToNum(str));
@@ -46,7 +47,7 @@ namespace Expleo.Calculator
         {
             double num1, num2;
             char opr;
-            while (stOperators.Count > 0 && getPriority(stOperators.Peek()) >= getPriority(currentChar))
+            while (stOperators.Count > 0 && getPriority(stOperators.Peek()) > getPriority(currentChar))
             {
                 num2 = stNumbers.Pop();
                 num1 = stNumbers.Pop();

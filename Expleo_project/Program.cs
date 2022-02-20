@@ -2,5 +2,7 @@
 using Expleo.WebPages;
 using Expleo_project;
 
-Menu menu = new();
-menu.ShowMenu();
+ArgsProcess.Run(args);
+
+//Menu menu = new();
+//menu.ShowMenu();

@@ -19,6 +19,8 @@ namespace Expleo_project
             string result;
             switch (args[0])
             {
+                case "-m": runMenu(args);
+                    break;
                 case "-a":
                     runAnagram(args);
                     break;
@@ -39,6 +41,12 @@ namespace Expleo_project
                     break;
 
             }
+        }
+
+        private static void runMenu(string[] args)
+        {
+            Menu menu = new Menu();
+            menu.ShowMenu();
         }
 
         private static void runAnagram(string[] args)
